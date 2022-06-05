@@ -20,6 +20,13 @@ def detectAndDisplay(frame):
             radius = int(round((w2 + h2)*0.25))
             frame = cv.circle(frame, eye_center, radius, (255, 0, 0 ), 4)
 
+        gray = cv.cvtColor(frame_gray, cv.COLOR_BGR2GRAY)
+        mouth_rects = smile_cascade.detectMultiScale(gray, 1.7, 11)
+        for (x, y, w, h) in mouth_rects:
+            y = int(y - 0.15 * h)
+            cv.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 3)
+            break
+
     cv.imshow('Capture - Face detection', frame)
 
 parser = argparse.ArgumentParser(description='Code for Cascade Classifier tutorial.')
