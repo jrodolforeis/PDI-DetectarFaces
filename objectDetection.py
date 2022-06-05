@@ -25,14 +25,17 @@ def detectAndDisplay(frame):
 parser = argparse.ArgumentParser(description='Code for Cascade Classifier tutorial.')
 parser.add_argument('--face_cascade', help='Path to face cascade.', default='./haarcascade_frontalface_alt.xml')
 parser.add_argument('--eyes_cascade', help='Path to eyes cascade.', default='./haarcascade_eye_tree_eyeglasses.xml')
+parser.add_argument('--smile_cascade', help='Path to smile cascade.', default='./haarcascade_smile.xml')
 parser.add_argument('--camera', help='Camera divide number.', type=int, default=0)
 args = parser.parse_args()
 
 face_cascade_name = args.face_cascade
 eyes_cascade_name = args.eyes_cascade
+smile_cascade_name = args.smile_cascade
 
 face_cascade = cv.CascadeClassifier()
 eyes_cascade = cv.CascadeClassifier()
+smile_cascade = cv.CascadeClassifier()
 
 #-- 1. Load the cascades
 if not face_cascade.load(cv.samples.findFile(face_cascade_name)):
@@ -40,6 +43,9 @@ if not face_cascade.load(cv.samples.findFile(face_cascade_name)):
     exit(0)
 if not eyes_cascade.load(cv.samples.findFile(eyes_cascade_name)):
     print('--(!)Error loading eyes cascade')
+    exit(0)
+if not smile_cascade.load(cv.samples.findFile(smile_cascade_name)):
+    print('--(!)Error loading smile cascade')
     exit(0)
 
 camera_device = args.camera
